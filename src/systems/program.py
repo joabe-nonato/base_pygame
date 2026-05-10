@@ -15,27 +15,24 @@ def aplicacao(raiz):
     game.screen = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
     game.clock = pygame.time.Clock()   
     
-    player01 = player_base(0)
-    player01.player_pos = pygame.Vector2(game.screen.get_width() / 2, (game.screen.get_width() / 2) / 2)
-    
-    # player02 = player_base(1)
-    # player02.player_pos = pygame.Vector2((game.screen.get_width() / 2) / 2, (game.screen.get_width() / 2) / 2)
-
+    game.player01 = player_base(0)
+        
     while game.running:
         # poll for events
         # pygame.QUIT event means the user clicked X to close your window
-        for evento in pygame.event.get():
+        game.entrada_eventos = pygame.event.get()
+        for evento in game.entrada_eventos:
             if evento.type == pygame.QUIT:
-                game.running = False
-                
-        if evento.type == pygame.KEYDOWN:
-            if evento.key == pygame.K_ESCAPE:
-                game.running = False
+                game.running = False                
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_ESCAPE:
+                    game.running = False
+        
 
         # fill the screen with a color to wipe away anything from last frame
-        game.screen.fill("purple")
+        game.screen.fill((0,0,0))
         
-        match game.evento:
+        match game.evento_atual:
             case 0:
                 game.apresentacao(pygame, TELA_LARGURA, TELA_ALTURA)
             case 1:
@@ -43,10 +40,10 @@ def aplicacao(raiz):
             case 2:
                 game.selecao(pygame, TELA_LARGURA, TELA_ALTURA)
                 
-            case 99:
-                game.exemplo(pygame,player01, TELA_LARGURA, TELA_ALTURA)
-                # game.exemplo(pygame,player01,pygame,player02, TELA_LARGURA, TELA_ALTURA)
-            
+            case 3: 
+                # SOMENTE EXEMPLO
+                game.exemplo(pygame, TELA_LARGURA, TELA_ALTURA)
+                
         # flip() the display to put your work on screen
         pygame.display.flip()
 
