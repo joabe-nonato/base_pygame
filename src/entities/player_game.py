@@ -5,6 +5,7 @@ class player_base(basic):
     def __init__(self, idp):
         super().__init__()
         self.id = idp
+        self.eventos = None
         self.cor_fundo = None
         self.pulo = None        
         self.player_pos = None
